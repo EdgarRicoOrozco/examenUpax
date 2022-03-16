@@ -17,6 +17,10 @@ class GraphicsPresenter {
 
 
 extension GraphicsPresenter: GraphicsPresenterProtocol {
+    func responseData(response: [listResponse.__Questions.__ChartData]?) {
+        
+    }
+    
     func responseGraphics(response: [listResponse.__Questions]?) {
         view?.notifyGraphics(response: response)
     }
@@ -25,4 +29,7 @@ extension GraphicsPresenter: GraphicsPresenterProtocol {
         interactor?.getGraphics()
     }
     
+    func goNavigationBack() {
+        router?.navigationBack()
+    }
 }

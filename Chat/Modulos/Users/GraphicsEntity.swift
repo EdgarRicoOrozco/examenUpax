@@ -26,7 +26,6 @@ struct listResponse: Codable {
             case total = "total"
             case text = "text"
             case chartData = "chartData"
-        
         }
         struct __ChartData: Codable{
             var text: String?
@@ -38,5 +37,17 @@ struct listResponse: Codable {
             }
         }
     }
-    
 }
+
+struct ChartData {
+    var text: String?
+    var percetnage: Int?
+}
+
+
+struct Questions {
+    var total: Int?
+    var text: String?
+   
+}
+

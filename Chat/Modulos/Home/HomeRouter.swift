@@ -12,8 +12,6 @@ import UIKit
 class HomeRouter{
     var navigation: UINavigationController?
     func navigationRegisterUsers(){
-        let controller = RegisterUsersMain.createModule(navigation: self.navigation!)
-                navigation?.pushViewController(controller, animated: true)
     }
     
     func navigationToUsers(){

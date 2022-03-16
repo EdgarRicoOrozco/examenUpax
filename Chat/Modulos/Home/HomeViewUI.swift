@@ -47,7 +47,7 @@ class HomeViewUI: UIView{
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Registro de Visitas"
+        label.text = "Bienvenido"
         label.textColor = ColorManager.mainPurple
         label.font = .boldSystemFont(ofSize: 28)
         label.textAlignment = .center

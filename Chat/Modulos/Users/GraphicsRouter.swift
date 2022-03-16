@@ -15,5 +15,9 @@ class GraphicsRouter{
 }
 
 extension GraphicsRouter: GraphicsRouterProtocol{
+    func navigationBack() {
+        navigation?.popViewController(animated: true)
+    }
+    
     
 }

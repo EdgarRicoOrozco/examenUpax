@@ -20,31 +20,68 @@ class GraphicsView: UIViewController {
             delegate: self
         )
         
-        presenter?.requestGraphics()
-        view = ui
         
+        view = ui
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showLoading()
+        presenter?.requestGraphics()
+        
     }
     
 }
 
 extension GraphicsView: GraphicsViewProtocol {
+    func notifyData(response: [listResponse.__Questions.__ChartData]?) {
+        
+    }
+    
+    func goToBack() {
+        presenter?.goNavigationBack()
+    }
+    
     func notifyGraphics(response: [listResponse.__Questions]?) {
-        guard response?.count != 0 else {
-            ui?.Questions = []
-            return
+        var mapping : [Questions] = []
+        var mappingdata : [ChartData] = []
+        let preguntas: Int = response?.count ?? 0
+        GraphicsData.PreguntasNumero = preguntas
+        
+        for ma in response ?? [] {
+            mapping.append(Questions(total: ma.total, text: ma.text))
+            GraphicsData.Preguntas.append(ma.text ?? "")
         }
+    
         ui?.Questions = response
     }
+    
+    func notifyData(response: [listResponse.__Questions.__ChartData]) {
+
+    }
+    
+    func showLoading() {
+        DispatchQueue.main.async {
+            UILoader.show(parent: self.view)
+        }
+    }
+    
+    func dissmissLoading() {
+        DispatchQueue.main.async {
+            
+            UILoader.remove(parent: self.view)
+        }
+    }
+    
 }
 
-open class date {
-    public static var quesone : [CGFloat] = []
+open class GraphicsData {
+    public static var PreguntasNumero: Int?
+    public static var Preguntas : [String] = []
 }
 
 extension GraphicsView: GraphicsViewUIDelegate {
+    
+    
     
 }

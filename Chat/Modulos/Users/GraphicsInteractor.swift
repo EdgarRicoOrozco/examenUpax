@@ -7,17 +7,14 @@
 //
 
 import Foundation
-import Alamofire
 
 class GraphicsInteractor{
     var presenter: GraphicsPresenterProtocol?
-    private let urlBase = "https://us-central1-bibliotecadecontenido.cloudfunctions.net/helloWorld"
-    private let statusOk = 200...299
 }
 
 extension GraphicsInteractor: GraphicsInteractorProtocol {
     func getGraphics(){
-        nombre1Movies { responseInfo, responseCode, responseError in
+        getGraphic { responseInfo, responseCode, responseError in
             guard let response = responseInfo?.questions else {
                 guard let error = responseError else {
                     print("casi ultimo error ")
@@ -26,12 +23,25 @@ extension GraphicsInteractor: GraphicsInteractorProtocol {
                 print("Ultimno errrors")
                 return
             }
-            print(response)
            self.presenter?.responseGraphics(response: response)
         }
     }
     
-    func nombre1Movies(completionHandler:@escaping(listResponse?,Int?,Error?)->Void){
+    func getData(){
+        getGraphic { responseInfo, responseCode, responseError in
+            guard let response = responseInfo?.questions else {
+                guard let error = responseError else {
+                    print("casi ultimo error ")
+                    return
+                }
+                print("Ultimno errrors")
+                return
+            }
+//            self.presenter?.responseData(response: response.)
+        }
+    }
+    
+    func getGraphic(completionHandler:@escaping(listResponse?,Int?,Error?)->Void){
         let urlString = "https://us-central1-bibliotecadecontenido.cloudfunctions.net/helloWorld"
         if let urlObject = URL(string: urlString){
             var urlRequest = URLRequest(url: urlObject)

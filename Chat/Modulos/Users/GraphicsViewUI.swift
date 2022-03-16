@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 protocol GraphicsViewUIDelegate {
-    
+    func dissmissLoading()
+    func goToBack()
 }
 
 class GraphicsViewUI: UIView{
@@ -63,7 +64,7 @@ class GraphicsViewUI: UIView{
     private lazy var backBtn: Btn_Default = {
         let button = Btn_Default(titleText: "Regresar", textAlignment: .Center, showIcon: false)
         button.setEnableButton(enable: true)
-        //button.addTarget(self, action: #selector(back), for: .touchUpInside)
+        button.addTarget(self, action: #selector(back), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -100,10 +101,16 @@ class GraphicsViewUI: UIView{
         
     }
     
+    func refresh() {
+        tableUsers.reloadData()
+    }
+    
     var Questions: [listResponse.__Questions]?{
         didSet{
-            //isLoading = false
-          //  tableView.reloadData()
+            delegate?.dissmissLoading()
+            DispatchQueue.main.async {
+                self.tableUsers.reloadData()
+            }
         }
     }
     
@@ -143,6 +150,10 @@ class GraphicsViewUI: UIView{
         ])
     }
     
+    @objc func back(){
+        delegate?.goToBack()
+    }
+    
 }
 
 extension GraphicsViewUI: UITableViewDataSource {
@@ -155,17 +166,15 @@ extension GraphicsViewUI: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GraphicsCell") as! GraphicsCell
         cell.tag = indexPath.row
-        let questions = Questions?[indexPath.row]
-        print(indexPath.row)
-        print(Questions?.count)
-        cell.nameLabel.text = data.Preguntas[indexPath.row]
-        
+        cell.nameLabel.text = GraphicsData.Preguntas[indexPath.row]
+        print("hehehehehe")
+        print(GraphicsData.Preguntas[indexPath.row])
         return cell
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(Questions?.count)
-        return Questions?.count ?? 0
+        print(GraphicsData.PreguntasNumero)
+        return GraphicsData.PreguntasNumero ?? 0
     }
 
 }

@@ -18,7 +18,6 @@ class GraphicsCell: UITableViewCell, EGPieChartDelegate  {
         
     }
     
-
     lazy var containerView: UIView = {
         let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -55,24 +54,35 @@ class GraphicsCell: UITableViewCell, EGPieChartDelegate  {
             Thread.sleep(forTimeInterval: 0)
             DispatchQueue.main.async {
                 var testDataArr: [CGFloat] = []
+                var profile: [String] = []
                 switch self.tag{
                     case 0:
-                    let data: [CGFloat] = data.preguntadosenteros
+                    let data: [CGFloat] = dataG.p1a
+                    let prof: [String] = dataG.p1
+                    profile = prof
                     testDataArr = data
                     case 1:
-                    let data: [CGFloat] = data.preguntadosenteros
+                    let data: [CGFloat] = dataG.p2a
+                    let prof: [String] = dataG.p2
+                    profile = prof
                     testDataArr = data
                     case 2:
-                    let data: [CGFloat] = data.preguntaunoenteros
+                    let data: [CGFloat] = dataG.p3a
+                    let prof: [String] = dataG.p3
+                    profile = prof
                     testDataArr = data
                     case 3:
-                    let data: [CGFloat] = data.preguntadosenteros
+                    let data: [CGFloat] = dataG.p4a
+                    let prof: [String] = dataG.p4
+                    profile = prof
                     testDataArr = data
                 default:
-                    let data: [CGFloat] = [10,10,10]
+                    let data: [CGFloat] = dataG.p5a
+                    let prof: [String] = dataG.p5
+                    profile = prof
                     testDataArr = data
                 }
-                let profile: [String] = ["no","si","puede","quien"]
+                
 //                let testDataArr: [CGFloat] = [55.2]
                 var datas = [EGPieChartData]()
                 for i in 0..<testDataArr.count {
